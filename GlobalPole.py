@@ -12,12 +12,9 @@ class GlobalPole:
         self.pos_loced = []
         for i in range(5):
             self.what_pos()
-            if i == 0:
-                self.this_pos(i)
-            else:
-                while self.coords in self.pos_loced:
-                    self.what_pos()
-                self.this_pos(i)
+            while self.coords in self.pos_loced:
+                self.what_pos()
+            self.this_pos(i)
 
     def what_pos(self):
         pos = random.randint(0, 63)
