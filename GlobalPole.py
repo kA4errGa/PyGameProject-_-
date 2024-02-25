@@ -26,7 +26,7 @@ class GlobalPole:
 
     def paint_icon(self, s):
         for i in self.local:
-            if i == 'Сумрачный лес':
+            if i == 'Сумрачный лес' and self.local[i] != (-1, -1):
                 s.blit(image.load('image/forest_icon.png'), (204 + self.local[i][0] * 62, 19 + self.local[i][1] * 72))
             if i == 'Сокровищница дракона':
                 s.blit(image.load('image/dragon_icon.png'), (204 + self.local[i][0] * 62, 19 + self.local[i][1] * 72))
@@ -71,3 +71,6 @@ class GlobalPole:
             if i != 'Player' and self.local[i] == self.local['Player']:
                 return i
         return False
+
+    def del_ivent(self, ivent_name):
+        self.local[ivent_name] = (-1, -1)
