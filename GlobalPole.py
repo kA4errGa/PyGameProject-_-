@@ -4,25 +4,30 @@ import random
 
 class GlobalPole:
     def __init__(self):
+        self.coords = None
         self.local_list = random.sample(['Сумрачный лес', 'Сокровищница дракона', 'Большой город',
                                          'Логово чародея', 'Деревня', 'Хлебные поля', 'Эльфийское озеро'], 4)
         self.local_list.append('Player')
         self.local = {}
         self.pos_loced = []
         for i in range(5):
-            self.pos = random.randint(0, 63)
-            self.a = self.pos // 8
-            self.b = self.pos % 8
+            self.what_pos()
             if i == 0:
-                self.local[self.local_list[i]] = (self.b, self.a)
-                self.pos_loced.append((self.b, self.a))
+                self.this_pos(i)
             else:
-                while (self.b, self.a) in self.pos_loced:
-                    self.pos = random.randint(0, 63)
-                    self.a = self.pos // 8
-                    self.b = self.pos % 8
-                self.local[self.local_list[i]] = (self.b, self.a)
-                self.pos_loced.append((self.b, self.a))
+                while self.coords in self.pos_loced:
+                    self.what_pos()
+                self.this_pos(i)
+
+    def what_pos(self):
+        pos = random.randint(0, 63)
+        a = pos // 8
+        b = pos % 8
+        self.coords = (b, a)
+
+    def this_pos(self, ii):
+        self.local[self.local_list[ii]] = self.coords
+        self.pos_loced.append(self.coords)
 
     def paint_icon(self, s):
         for i in self.local:
