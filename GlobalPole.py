@@ -2,6 +2,7 @@ from pygame import *
 import random
 
 
+# Класс поля для перемещения между локациями (Какие локации будут в сессии определяется при создании объекта)
 class GlobalPole:
     def __init__(self):
         self.local_list = random.sample(['Сумрачный лес', 'Сокровищница дракона', 'Большой город',
@@ -24,6 +25,7 @@ class GlobalPole:
                 self.local[self.local_list[i]] = (self.b, self.a)
                 self.pos_loced.append((self.b, self.a))
 
+    # метод вывода локаций на экран
     def paint_icon(self, s):
         for i in self.local:
             if i == 'Сумрачный лес' and self.local[i] != (-1, -1):
@@ -43,9 +45,11 @@ class GlobalPole:
             if i == 'Player':
                 s.blit(image.load('image/player_icon.png'), (204 + self.local[i][0] * 62, 19 + self.local[i][1] * 72))
 
+    # метод возвращающий координаты всех локаций и игрока
     def get_self_local(self):
         return self.local
 
+    # методы для передвижения игрока по полю
     def player_up_y(self):
         self.pos_x = self.local['Player'][0]
         self.pos_y = self.local['Player'][1]
@@ -66,11 +70,13 @@ class GlobalPole:
         self.pos_y = self.local['Player'][1]
         self.local['Player'] = (max(self.pos_x - 1, 0), self.pos_y)
 
+    # метод для проверки зашёл ли игрок на локацию
     def player_take_ivent(self):
         for i in self.local:
             if i != 'Player' and self.local[i] == self.local['Player']:
                 return i
         return False
 
+    # метод убирающий локацию на которой игрок уже побывал
     def del_ivent(self, ivent_name):
         self.local[ivent_name] = (-1, -1)

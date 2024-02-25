@@ -1,6 +1,7 @@
 from pygame import *
 
 
+# Класс характеристик игрока
 class Parametrs:
     def __init__(self):
         self.param_life = 5
@@ -10,6 +11,7 @@ class Parametrs:
         self.param_mony = 5
         self.param_mony_max = 10
 
+    # метод вывода характеристик на экран
     def paint_par(self, s):
         self.par_name_font = font.Font('Merriweather/Merriweather-Regular.ttf', 19)
         self.text_par_name = (self.par_name_font).render('Характеристики', True, (255, 255, 255))
@@ -27,6 +29,7 @@ class Parametrs:
                                                           'yellow')
         s.blit(self.text_mony_name, (14, 260))
 
+    # метод обновления характеристик
     def par_up(self, name, a):
         if name == 'life':
             self.new_par_life = self.param_life + a
@@ -56,6 +59,7 @@ class Parametrs:
             if self.param_mony_max < self.param_mony:
                 self.param_mony = self.param_mony_max
 
+    # методы для проверки жив ли игрок
     def life_not_zero(self):
         if self.param_life > 0:
             return True

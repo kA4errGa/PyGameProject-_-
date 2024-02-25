@@ -2,6 +2,7 @@ from pygame import *
 import random
 
 
+# Класс поля для перемещения по локации (Где будут распологаться события локации определяется при создании объекта)
 class LocalPole:
     def __init__(self):
         self.local_list = ['Главный квест', 'Побочный квест', 'Ловушка', 'Player']
@@ -22,9 +23,11 @@ class LocalPole:
                 self.local[self.local_list[i]] = (self.b, self.a)
                 self.pos_loced.append((self.b, self.a))
 
+    # метод возвращающий координаты всех событий и игрока на локации
     def get_self_local(self):
         return self.local
 
+    # методы для передвижения игрока по полю
     def player_up_yl(self):
         self.pos_x = self.local['Player'][0]
         self.pos_y = self.local['Player'][1]
@@ -45,6 +48,7 @@ class LocalPole:
         self.pos_y = self.local['Player'][1]
         self.local['Player'] = (max(self.pos_x - 1, 0), self.pos_y)
 
+    # метод выводящий на экран события локации и положение игрока
     def paint_icon(self, s):
         for i in self.local:
             if i == 'Главный квест' and self.local[i] != (-1, -1):
@@ -57,6 +61,7 @@ class LocalPole:
                 s.blit(image.load('image/player_icon_local.png'),
                        (714 + self.local[i][0] * 92, 15 + self.local[i][1] * 98))
 
+    # методы проверяющие какое событие взял игрок
     def take_main(self):
         if self.local['Player'] == self.local['Главный квест']:
             return True
@@ -75,5 +80,6 @@ class LocalPole:
         else:
             return False
 
+    # метод удаляющий уже пройденное событие локации
     def del_ivent(self, ivent_name):
         self.local[ivent_name] = (-1, -1)

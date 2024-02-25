@@ -1,11 +1,13 @@
 from pygame import *
 
 
+# Класс для создания поля с легендами к локациям
 class LegendPole:
     def __init__(self, data):
         self.names = [i for i in data]
         self.count = 0
 
+    # метод вывода легенды на экран
     def paint_legend(self, s):
         for i in range(4):
             self.y_cord = 390 + 49 * i

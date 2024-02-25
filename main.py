@@ -9,6 +9,7 @@ from Ivets import Forest_ivent
 init()
 
 
+# Функция отрисовывающяя поле для перемещения между локациями
 def PaintMainPole():
     PaintMainPole_square_main = Surface((500, 580))
     PaintMainPole_square_main.fill((255, 255, 255))
@@ -20,6 +21,7 @@ def PaintMainPole():
             screen.blit(PaintMainPole_square_main_clet, (x, y))
 
 
+# Функция отрисовывающяя поле для перемещения по локации
 def PaintLocalPole():
     PaintLocalPole_square_main = Surface((280, 300))
     PaintLocalPole_square_main.fill((255, 255, 255))
@@ -31,6 +33,7 @@ def PaintLocalPole():
             screen.blit(PaintLocalPole_square_main_clet, (x, y))
 
 
+# Функция отрисовывающяя рамочку
 def PaintRamochca(Paint_s, Paint_h, Paint_x, Paint_y):
     PaintRecPole_square_poias = Surface((Paint_s, Paint_h))
     PaintRecPole_square_poias.fill((255, 255, 255))
@@ -39,12 +42,13 @@ def PaintRamochca(Paint_s, Paint_h, Paint_x, Paint_y):
     PaintRecPole_square_poias1.fill((0, 0, 0))
     screen.blit(PaintRecPole_square_poias1, (Paint_x + 4, Paint_y + 4))
 
-
+# создание параметров окна
 size = (1000, 600)
 screen = display.set_mode(size)
 display.set_caption("ЛУЧШАЯ В МИРЕ ИГРА")
 display.set_icon(image.load('image/icon_prilojenia.jpg'))
 
+# создание переменных необходимых для работы систем импортируемых из других файлов
 forest = Forest_ivent()
 Player_position = 'Global'
 main_p = GlobalPole()
@@ -55,6 +59,7 @@ parametrs = Parametrs()
 block = Surface((492, 572))
 block.fill((0, 0, 0))
 
+# создание переменных для развития событий на локациях после принятия игроком решений
 Player_ivent = None
 choice = None
 vibor = False
@@ -64,10 +69,11 @@ ansv_nm = False
 trig = None
 ansv_nm_b = False
 
+#игровой цикл
 running = True
 
 while running:
-
+    # отрисовка окна
     screen.blit(image.load('image/1620268386_21-phonoteka_org-p-fon-iz-mobilnikh-igr-22.jpg'), (0, 0))
     PaintRamochca(180, 380, 10, 10)
     PaintRamochca(180, 190, 10, 400)
@@ -79,14 +85,16 @@ while running:
     if Player_position == 'Global':
         PaintMainPole()
         main_p.paint_icon(screen)
+    # отрисовка окна в случае захода на локацию
     if Player_position == 'Local' or Player_position == 'Local_S':
         main_p.paint_icon(screen)
         PaintRamochca(500, 580, 200, 10)
         local_p.paint_icon(screen)
-
+        # отрисовка окна и развитие событий на локации 'Сумрачный лес'
         if Player_ivent == 'Сумрачный лес':
             main_p.del_ivent('Сумрачный лес')
             forest.out_dis(screen)
+            # отрисовка окна и развитие событий на локации 'Сумрачный лес' в случае прохождения главного квеста
             if local_p.take_main():
                 Player_position = 'Local_S'
                 PaintRamochca(500, 580, 200, 10)
@@ -125,6 +133,7 @@ while running:
                         choice = None
                         vibor = False
                         Player_position = 'Global'
+            # отрисовка окна и развитие событий на локации 'Сумрачный лес' в случае прохождения побочного квеста
             if local_p.take_notmain():
                 Player_position = 'Local_S'
                 PaintRamochca(500, 580, 200, 10)
@@ -197,6 +206,7 @@ while running:
                         vibor = False
                         choice = None
                         ansv_nm = False
+            # отрисовка окна и развитие событий на локации 'Сумрачный лес' в случае прохождения ловушки
             if local_p.take_lovuscha():
                 Player_position = 'Local_S'
                 PaintRamochca(500, 580, 200, 10)
@@ -223,10 +233,12 @@ while running:
     if main_p.player_take_ivent():
         Player_position = 'Local'
         Player_ivent = main_p.player_take_ivent()
+    # Обработка команд игрока
     for ev in event.get():
         if ev.type == QUIT:
             quit()
             running = False
+        # Обработка перемещений
         if Player_position == 'Local':
             if ev.type == KEYDOWN:
                 if ev.key == K_w:
@@ -247,6 +259,7 @@ while running:
                     main_p.player_up_x()
                 if ev.key == K_a:
                     main_p.player_down_x()
+        # Обработка выбора развития события
         if Player_position == 'Local_S' and not (vibor):
             if ev.type == MOUSEBUTTONDOWN:
                 if (ev.pos[0] >= 214 and ev.pos[0] <= 686) and (ev.pos[1] >= 472 and ev.pos[1] <= 492):
@@ -269,7 +282,7 @@ while running:
                     choice = 1
                 if (ev.pos[0] >= 214 and ev.pos[0] <= 686) and (ev.pos[1] >= 556 and ev.pos[1] <= 576):
                     choice = 0
-
+    # Проверка смерти игрока
     if not (parametrs.life_not_zero() and parametrs.power_not_zero()):
         running = False
     display.flip()

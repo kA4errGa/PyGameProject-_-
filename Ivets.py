@@ -1,7 +1,8 @@
 from pygame import *
-import random
+# Файл в котором содержатся классы всех локаций
 
 
+# Класс Локации 'Сумрачный лес'
 class Forest_ivent:
     def __init__(self):
         self.description = ['Перед вами простирается огромный сумрачный лес,',
@@ -38,11 +39,13 @@ class Forest_ivent:
                         'Что вы предпримете?']
         self.descfont = font.Font('Merriweather/Merriweather-Regular.ttf', 15)
 
+    # метод вывода описания локации при входе в неё
     def out_dis(self, s):
         for i in range(len(self.description)):
             self.desc_text = (self.descfont).render(self.description[i], True, 'green')
             s.blit(self.desc_text, (204, 14 + i * 17))
 
+    # методы выводящие развитие событий при прохождении событий локации
     def mainquest(self, s):
         for i in range(len(self.m_quest)):
             self.main_text = (self.descfont).render(self.m_quest[i], True, 'green')
@@ -101,7 +104,9 @@ class Forest_ivent:
         s.blit(self.text_btn_l2, (214, 557))
 
     def vibor_nmb(self, s):
-        self.nm_op = ['Ну раз жадный такой придётся тебе урок преподать, чтоб не жадничал! Не будет у тебя больше ни сил, ни здоровья! Сказав это, ведьма махнула рукой и, вы заснули. Спустя время вы пришли себя на какой-то полянке обессиленными, без денег и славы.']
+        self.nm_op = ['Ну раз жадный такой придётся тебе урок преподать, чтоб не жадничал! ',
+                      'Не будет у тебя больше ни сил, ни здоровья! Сказав это, ведьма махнула рукой и, ',
+                      'вы заснули. Спустя время вы пришли себя на какой-то полянке обессиленными, без денег и славы.']
         for i in range(len(self.nm_op)):
             self.lovuscha_text = (self.descfont).render(self.nm_op[i], True, 'green')
             s.blit(self.lovuscha_text, (204, 14 + i * 17))
