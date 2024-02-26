@@ -14,17 +14,14 @@ class GlobalPole:
             self.what_pos()
             while self.coords in self.pos_loced:
                 self.what_pos()
-            self.this_pos(i)
+            self.local[self.local_list[i]] = self.coords
+            self.pos_loced.append(self.coords)
 
     def what_pos(self):
         pos = random.randint(0, 63)
         a = pos // 8
         b = pos % 8
         self.coords = (b, a)
-
-    def this_pos(self, ii):
-        self.local[self.local_list[ii]] = self.coords
-        self.pos_loced.append(self.coords)
 
     def paint_icon(self, s):
         for i in self.local:
