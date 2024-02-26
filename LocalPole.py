@@ -4,46 +4,45 @@ import random
 
 class LocalPole:
     def __init__(self):
+        self.coords = None
         self.local_list = ['Главный квест', 'Побочный квест', 'Ловушка', 'Player']
         self.local = {}
         self.pos_loced = []
         for i in range(4):
-            self.pos = random.randint(0, 8)
-            self.a = self.pos // 3
-            self.b = self.pos % 3
-            if i == 0:
-                self.local[self.local_list[i]] = (self.b, self.a)
-                self.pos_loced.append((self.b, self.a))
-            else:
-                while (self.b, self.a) in self.pos_loced:
-                    self.pos = random.randint(0, 8)
-                    self.a = self.pos // 3
-                    self.b = self.pos % 3
-                self.local[self.local_list[i]] = (self.b, self.a)
-                self.pos_loced.append((self.b, self.a))
+            self.what_pos()
+            while self.coords in self.pos_loced:
+                self.what_pos()
+            self.local[self.local_list[i]] = self.coords
+            self.pos_loced.append(self.coords)
+
+    def what_pos(self):
+        pos = random.randint(0, 8)
+        a = pos // 3
+        b = pos % 3
+        self.coords = (b, a)
 
     def get_self_local(self):
         return self.local
 
     def player_up_yl(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (self.pos_x, max(0, self.pos_y - 1))
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (pos_x, max(0, pos_y - 1))
 
     def player_down_yl(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (self.pos_x, min(2, self.pos_y + 1))
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (pos_x, min(2, pos_y + 1))
 
     def player_up_xl(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (min(self.pos_x + 1, 2), self.pos_y)
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (min(pos_x + 1, 2), pos_y)
 
     def player_down_xl(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (max(self.pos_x - 1, 0), self.pos_y)
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (max(pos_x - 1, 0), pos_y)
 
     def paint_icon(self, s):
         for i in self.local:
