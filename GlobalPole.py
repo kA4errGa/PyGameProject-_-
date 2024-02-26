@@ -49,24 +49,24 @@ class GlobalPole:
         return self.local
 
     def player_up_y(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (self.pos_x, max(0, self.pos_y - 1))
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (pos_x, max(0, pos_y - 1))
 
     def player_down_y(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (self.pos_x, min(7, self.pos_y + 1))
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (pos_x, min(7, pos_y + 1))
 
     def player_up_x(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (min(self.pos_x + 1, 7), self.pos_y)
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (min(pos_x + 1, 7), pos_y)
 
     def player_down_x(self):
-        self.pos_x = self.local['Player'][0]
-        self.pos_y = self.local['Player'][1]
-        self.local['Player'] = (max(self.pos_x - 1, 0), self.pos_y)
+        pos_x = self.local['Player'][0]
+        pos_y = self.local['Player'][1]
+        self.local['Player'] = (max(pos_x - 1, 0), pos_y)
 
     def player_take_ivent(self):
         for i in self.local:
