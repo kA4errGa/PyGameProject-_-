@@ -8,8 +8,8 @@ class Score:
 
     def paint_score(self, s):
         scorenamefont = font.Font('Merriweather/Merriweather-Regular.ttf', 50)
-        self.textscorename = scorenamefont.render('Счёт', True, (255, 255, 255))
-        s.blit(self.textscorename, (34, 404))
+        textscorename = scorenamefont.render('Счёт', True, (255, 255, 255))
+        s.blit(textscorename, (34, 404))
         scorefont = font.Font('Merriweather/Merriweather-Regular.ttf', 50)
         textscore = scorefont.render(str(self.score), True, (255, 255, 255))
         s.blit(textscore, (34, 504))
